@@ -1,14 +1,12 @@
-import Header from "../pages/Header"
+import Header from "../pages/Header";
 
 function MainLayout({children}){
     return(
         <>
-        <Header/>
-           {
-            children
-           }
+        <Header />
+           {children}
         </>
     )
 }
 
-export default MainLayout
+export default MainLayout;

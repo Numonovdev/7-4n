@@ -4,7 +4,7 @@ import { http } from "../axios";
 
 function Products(){
 
-
+    const[search, setSearch]=useState();
     const [data, setData] = useState([]);
     const navigate = useNavigate();
 
@@ -32,7 +32,7 @@ function handleClickID(id){
             <div className="w-full rounded-xl navbarr py-5 flex justify-evenly ">
                 <div className="w-1/5 flex flex-col">
                     <p>Search Products</p>
-                    <input type="text" className="mt-2 px-3 py-2 rounded-xl appp outline-none input-bordered w-full max-w-x" />
+                    <input value={search}    type="text" className="mt-2 px-3 py-2 rounded-xl appp outline-none input-bordered w-full max-w-x" />
                     <div className="mt-10">
                         <div className="flex justify-between">
                         <span>Select Price</span>

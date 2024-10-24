@@ -26,6 +26,9 @@ function App() {
   const[cart, setCart]= useState([]);
 
 
+  
+
+
   useEffect(() => {
     const savedTheme = localStorage.getItem('theme');
     if (savedTheme) {

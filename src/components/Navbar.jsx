@@ -1,18 +1,28 @@
-import { useContext, useEffect, useRef } from 'react';
+import { useContext, useEffect, useRef, useState } from 'react';
 import { Link } from "react-router-dom"
-import { ThemeContext } from "../App"
+import { CartContext, ThemeContext } from "../App"
 
 function Navbar(){
-
+  const {cart, setCart}= useContext(CartContext)
   const{theme, setTheme}= useContext(ThemeContext)
   const darkRef = useRef()
+  const[count, setCount]= useState(0);
 
   useEffect(()=>{
     if(localStorage.getItem('endstart')){
         let copy = localStorage.getItem('endstart');
         darkRef.current.style.justifyContent=copy
     }
+
 },[])
+
+useEffect(()=>{
+   let sum = 0
+   cart.forEach(e => {
+    sum += Number(e.count)
+   });
+   setCount(sum)
+},[cart])
 
 function handleClick(){
     if(theme=='light'){
@@ -50,7 +60,7 @@ function handleClick(){
                     <div className="w-[40%] h-full bgdarkchild rounded-2xl"></div>
                 </div>
     <div className="dropdown textt dropdown-end">
-      <div tabIndex={0} role="button" className="btn btn-ghost btn-circle">
+      <div tabIndex={count} role="button" className="btn btn-ghost btn-circle">
         <div className="indicator">
           <svg
             xmlns="http://www.w3.org/2000/svg"
@@ -64,7 +74,7 @@ function handleClick(){
               strokeWidth="2"
               d="M3 3h2l.4 2M7 13h10l4-8H5.4M7 13L5.4 5M7 13l-2.293 2.293c-.63.63-.184 1.707.707 1.707H17m0 0a2 2 0 100 4 2 2 0 000-4zm-8 2a2 2 0 11-4 0 2 2 0 014 0z" />
           </svg>
-          <span className="badge badge-sm indicator-item">0</span>
+          <span className="badge badge-sm indicator-item">{count}</span>
         </div>
       </div>
       <div
