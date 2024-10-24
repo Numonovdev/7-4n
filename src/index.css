@@ -1,0 +1,53 @@
+:root{
+  --black-blue:#f0f6ff;
+  --white-gray:white;
+  --white-grayy:hsl(214 30% 32% / 1);
+  --brb:hsl(217.02deg 92.16% 10%);
+  --black-white:hsl(217.02deg 92.16% 10%);
+  --blue-pink:#463aa1;
+  --blue-pinkk:#057aff;
+}
+[data-theme="dark"]{
+  --black-blue:black;
+  --white-gray:hsl(231.43deg 15.22% 18.04%);
+  --white-grayy:white;
+  --brb:hsl(229.57deg 15.03% 30%);
+  --black-white:white;
+  --blue-pink:#bf95f9;
+  --blue-pinkk:#ff7ac6;
+}
+.navbarr{
+    background-color: var(--black-blue);
+}
+.appp{
+ background-color: var(--white-gray);
+}
+.textt{
+  color: var(--white-grayy);
+}
+.headerr{
+  background-color: var(--brb);
+}
+.bgdark{
+  background-color: var(--white-grayy);
+}
+.bgdarkchild{
+  background-color: var(--white-gray);
+}
+.bordercolor{
+ border-color: var(--brb); 
+}
+.btnn{
+ background-color: var(--blue-pink);
+ color: var(--white-gray);
+}
+
+
+.selectt{
+  border-color: var(--blue-pink);
+}
+
+.aboutt{
+  color: var(--white-gray);
+  background-color: var(--blue-pinkk);
+}
