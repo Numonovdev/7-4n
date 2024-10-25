@@ -10,62 +10,47 @@ function Products() {
   const [data, setData] = useState([]);
   const [filteredData, setFilteredData] = useState([]);
   const navigate = useNavigate();
-
-  // ID bo'yicha mahsulotga o'tish
   function handleClickID(id) {
     navigate(`${id}`);
   }
-
-  // API orqali ma'lumotlarni olish
   useEffect(() => {
     http.get("products")
       .then((res) => {
-        console.log("Ma'lumotlar:", res.data.data); // Ma'lumotlarni tekshirish
+        console.log("Ma'lumotlar:", res.data.data);
         setData(res.data.data);
-        setFilteredData(res.data.data); // Boshida barcha ma'lumotlarni yuklash
+        setFilteredData(res.data.data);
       })
       .catch((err) => {
         console.log("Xato:", err);
       });
   }, []);
-
-  // Filtrlangan ma'lumotlarni yangilash
   useEffect(() => {
     let updatedData = data;
-
-    // Qidiruv bo'yicha filtr
     if (search) {
       updatedData = updatedData.filter((item) =>
         item.attributes.title.toLowerCase().includes(search.toLowerCase())
       );
     }
-
-    // Kategoriya bo'yicha filtr
     if (selectedCategory !== "all") {
       updatedData = updatedData.filter(
         (item) => item.attributes.category === selectedCategory
       );
     }
-
-    // Kompaniya bo'yicha filtr
     if (selectedCompany !== "all") {
       updatedData = updatedData.filter(
         (item) => item.attributes.company === selectedCompany
       );
     }
-
-    // Narx bo'yicha filtr
     updatedData = updatedData.filter(
       (item) => item.attributes.price <= priceRange
     );
 
-    setFilteredData(updatedData); // Filtrlash natijasini yangilash
+    setFilteredData(updatedData);
   }, [search, selectedCategory, selectedCompany, priceRange, data]);
 
   return (
     <div className="container mx-auto flex pb-20 flex-col mt-10">
       <div className="w-full rounded-xl navbarr py-5 flex justify-evenly ">
-        {/* Qidiruv */}
         <div className="w-1/5 flex flex-col">
           <p>Search Products</p>
           <input
@@ -92,8 +77,6 @@ function Products() {
             </div>
           </div>
         </div>
-
-        {/* Kategoriya */}
         <div className="w-1/5 flex flex-col">
           <p>Select Category</p>
           <select
@@ -109,8 +92,6 @@ function Products() {
             <option value="Beds">Beds</option>
           </select>
         </div>
-
-        {/* Kompaniya */}
         <div className="w-1/5 flex flex-col">
           <p>Select Company</p>
           <select
@@ -127,8 +108,6 @@ function Products() {
           </select>
         </div>
       </div>
-
-      {/* Filtrlangan mahsulotlar ro'yxati */}
       <div>
         <div className="flex justify-between border-b bordercolor py-5 mt-10">
           <p>{filteredData.length} products</p>
