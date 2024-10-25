@@ -1,22 +1,43 @@
-import React, { useState } from 'react';
+import React, { useRef, useState } from 'react';
 import { Link } from 'react-router-dom';
+import { http } from '../axios';
+
 
 const Login = () => {
-  const [email, setEmail] = useState('');
-  const [password, setPassword] = useState('');
 
-  const handleSubmit = (e) => {
+  const emailRef = useRef()
+  const passwordRef = useRef()
+
+
+
+  function handleLogin(e) {
     e.preventDefault();
-    console.log({ email, password });
-    // Bu yerda serverga yuborish yoki validatsiya qilishni amalga oshirishingiz mumkin
-  };
+    const data = {
+      email: emailRef.current.value,
+      password: passwordRef.current.value,
+    };
+
+    http.post("auth/local", data) // to'g'ri axios chaqirildi
+      .then(response => {
+        navigate('./');
+        console.log(response.data);
+      })
+      .catch(error => {
+        alert('nimadir xato kiritdingiz')
+        console.log(error);
+      });
+  }
+
+
+
+
 
   return (
     <div className="flex items-center justify-center h-screen bg-neutral">
       <div className="card w-96 bg-base-100 shadow-xl p-5">
         <h2 className="text-2xl font-bold text-center mb-4">Login</h2>
 
-        <form onSubmit={handleSubmit}>
+        <form >
           <div className="form-control mb-4">
             <label className="label">
               <span className="label-text">Email</span>
@@ -25,8 +46,7 @@ const Login = () => {
               type="email" 
               placeholder="Enter email" 
               className="input input-bordered w-full"
-              value={email}
-              onChange={(e) => setEmail(e.target.value)}
+              ref={emailRef}
             />
           </div>
 
@@ -38,12 +58,11 @@ const Login = () => {
               type="password" 
               placeholder="Enter password" 
               className="input input-bordered w-full"
-              value={password}
-              onChange={(e) => setPassword(e.target.value)}
+              ref={passwordRef}
             />
           </div>
 
-          <button type="submit" className="btn btn-primary w-full mb-2">LOGIN</button>
+          <button onClick={handleLogin} className="btn btn-primary w-full mb-2">LOGIN</button>
 
           <button className="btn btn-secondary w-full mb-4">GUEST USER</button>
 
